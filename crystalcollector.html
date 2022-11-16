@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Crystal Collector</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap File -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script> 
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+</head>
+
+<body>
+  <!-- Overall Bootstrap Grid -->
+  <div class="container">
+
+        <!-- Game Intro -->
+        <div class="intro">
+            <h1 class="text-center">
+            <strong>Crystal Collector Game !</strong>
+            </h1>
+            <hr>
+            <div id="gameinfo" class="text-center">
+                <h2> You will be given a random number at the start of the game.</h2>
+                <h2>  </h2>
+                <h2> There are four crystals below. By clicking on a crystal you will add a specific amount of point to your total score.</h2>
+                <h2>  </h2>
+                <h2> You win the game by matching your total score to a randomly generated number, you lose the game if your total score goes above the random number.</h2>
+                <h2>  </h2>
+                <h2> The value of each crystal is hidden from you until you click on it.</h2>
+                <h2>  </h2>
+                <h2> Each time when the game starts, the game will change the values of the crystals.</h2>
+            </div>
+        </div>
+
+        <!-- Score and W/L-->
+        <div class="swl">
+        <div class="row">
+            <!-- Score Box -->
+            <div class="col-lg-6">
+                <div class="score">
+                    <h1> Goal: </h1>
+                </div>
+            </div>
+
+            <!-- W/L Box -->
+            <div class="col-lg-6">
+                <div class = "W">
+                    <h1> Wins:   0</h1>
+                </div>
+                <div class = "L">
+                    <h1> Losses: 0 </h1>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Crystal and Current Score-->
+        <div class="row">
+            <!-- Crystal Box -->
+            <div class="col-lg-6">
+                <div class="gems">
+                    <img class="gemimgr" src="redgem.webp"    style="width:75px; height:75px;">
+                    <img class="gemimgb" src="bluegem.png"    style="width:75px; height:75px;">
+                    <img class="gemimgy" src="yellowgem.webp" style="width:75px; height:75px;">
+                    <img class="gemimgg" src="greengem.png"   style="width:75px; height:75px;">
+                </div>
+            </div>
+
+            <!-- Current Score Box -->
+            <div class="col-lg-6">
+                <div class="current">
+                    <h1> Current Score: </h1>
+                </div>
+            </div>
+        </div>
+
+  </div>
+
+  <script type="text/javascript">
+
+        var wins      = 0;
+        var losses    = 0; 
+        var score     = 0;
+        var redval    = Math.floor(Math.random() *20) + 1;
+        var blueval   = Math.floor(Math.random() *20) + 1;
+        var yellowval = Math.floor(Math.random() *20) + 1;
+        var greenval  = Math.floor(Math.random() *20) + 1;
+        var winscore  = Math.floor(Math.random() *75) + 1;
+        $(".score").html("<h1> Goal: " + winscore + "</h1>")          ;
+        $(".current").html("<h1> Current Score: " + score + "</h1>")  ;
+        console.log("Winning score is " + winscore);
+
+        function checkscore() {
+            if (score > winscore){
+                losses++;
+                $(".L").html("<h1> Losses: " + losses + "</h1>");
+                alert("You lost!");
+                resetgame();
+            } 
+            else if (score == winscore){
+                wins++;
+                $(".W").html("<h1> Wins: " + wins + "</h1>");
+                $(".gemimgr").animate({height: "300px"});
+                $(".gemimgb").animate({height: "300px"});
+                $(".gemimgy").animate({height: "300px"});
+                $(".gemimgg").animate({height: "300px"});
+                $(".gemimgr").animate({height: "75px"});
+                $(".gemimgb").animate({height: "75px"});
+                $(".gemimgy").animate({height: "75px"});
+                $(".gemimgg").animate({height: "75px"});
+                alert("You won!")
+                resetgame();
+            }
+        }
+
+        function resetgame() {
+            score     = 0                                ;
+            redval    = Math.floor(Math.random() *20) + 1;
+            blueval   = Math.floor(Math.random() *20) + 1;
+            yellowval = Math.floor(Math.random() *20) + 1;
+            greenval  = Math.floor(Math.random() *20) + 1;
+            winscore  = Math.floor(Math.random() *75) + 1;
+            $(".current").html("<h1> Current Score: " + score + "</h1>")   ;
+            $(".score").html("<h1> Goal: " + winscore + "</h1>")           ;
+            console.log("Winning score is " + winscore);
+        }
+
+    $(document).ready(function() {
+
+        $(".gems").on("click", ".gemimgr", function(){
+            score = score + redval;
+            checkscore();
+            console.log("Current Score is " + score);
+            $(".current").html("<h1> Current Score: " + score + "</h1>")   ;
+        });
+
+        $(".gems").on("click", ".gemimgb", function(){
+            score = score + blueval;
+            checkscore();
+            console.log("Current Score is " + score);
+            $(".current").html("<h1> Current Score: " + score + "</h1>")   ;
+        });
+
+        $(".gems").on("click", ".gemimgy", function(){
+            score = score + yellowval;
+            checkscore();
+            console.log("Current Score is " + score);
+            $(".current").html("<h1> Current Score: " + score + "</h1>")   ;
+        });
+
+        $(".gems").on("click", ".gemimgg", function(){
+            score = score + greenval;
+            checkscore(); 
+            console.log("Current Score is " + score);
+            $(".current").html("<h1> Current Score: " + score + "</h1>")   ;
+        });
+
+    });
+
+  </script>
+
+</body>
+</html>

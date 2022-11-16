@@ -1,0 +1,27 @@
+body {
+    background-image: url('crystalbackground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.intro {
+    margin-top: 20px;
+    opacity: 0.8;
+    background-color: bisque;
+}
+
+.gemimgr{
+    margin-left: 30px;
+}
+
+.gemimgb{
+    margin-left: 30px;
+}
+
+.gemimgy{
+    margin-left: 30px;
+}
+
+.gemimgg{
+    margin-left: 30px;
+}
